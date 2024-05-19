@@ -9,5 +9,6 @@ internal fun ProductEntity.toPresentation() =
         name = name,
         price = price,
         image = image,
-        quantity = quantity
+        quantity = quantity,
+        cartQuantity = cartQuantity
     )

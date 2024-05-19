@@ -1,6 +1,8 @@
 package com.example.task_arbuz.ui.component
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -43,11 +46,11 @@ import com.example.task_arbuz.ui.component.main.ProductViewModel
 import com.example.task_arbuz.ui.theme.ButtonGrey
 
 @Composable
-fun ProductGridItem(
-    product: Product,
-    viewModel: ProductViewModel = hiltViewModel(key = product.id.toString())
+fun CartListItem(
+    cartProduct: Product,
+    viewModel: ProductViewModel = hiltViewModel(key = cartProduct.id.toString())
 ) {
-    var itemCount by remember { mutableIntStateOf(product.cartQuantity) }
+    var itemCount by remember { mutableIntStateOf(cartProduct.cartQuantity) }
     val productState by viewModel.productState.collectAsState()
 
     when (val state = productState) {
@@ -57,29 +60,32 @@ fun ProductGridItem(
         else -> {}
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Column {
         Card(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.background,
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(240.dp)
-                .padding(horizontal = 12.dp)
+                .height(150.dp)
+                .border(
+                    1.dp,
+                    Color.LightGray.copy(alpha = .2f),
+                    MaterialTheme.shapes.medium
+                )
+                .padding(horizontal = 18.dp)
         ) {
-            Column(
+            Row(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
                 Box(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .width(130.dp)
                         .height(150.dp)
                 ) {
                     ImageNetworkLoader(
-                        imageUrl = product.image ?: "",
+                        imageUrl = cartProduct.image ?: "",
                         modifier = Modifier
                             .fillMaxSize()
                     )
@@ -87,22 +93,14 @@ fun ProductGridItem(
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()
+                        .padding(10.dp)
                 ) {
                     Text(
-                        text = product.name,
+                        text = cartProduct.name,
                         style = TextStyle(
                             fontSize = 16.sp,
                             color = Color.Black,
-                        ),
-                    )
-                    Spacer(modifier = Modifier.height(5.dp))
-                    Text(
-                        text = "$${product.price}",
-                        style = TextStyle(
-                            fontSize = 18.sp,
-                            color = Color.Black,
-                            fontWeight = FontWeight.Bold
-                        ),
+                        )
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                     Row(
@@ -112,15 +110,21 @@ fun ProductGridItem(
                             .clip(RoundedCornerShape(24.dp))
                             .background(if (itemCount > 0) Color.Green else ButtonGrey)
                             .clickable {
-                                viewModel.updateProductQuantity(product.id, 1)
-                                viewModel.getProductById(product.id)
+                                if (itemCount == 0) {
+                                    viewModel.updateProductQuantity(cartProduct.id, 1)
+                                    viewModel.getProductById(cartProduct.id)
+                                }
+                                Log.d("count", itemCount.toString())
                             }
                     ) {
                         if (itemCount >= 1) {
                             IconButton(
                                 onClick = {
-                                    viewModel.updateProductQuantity(product.id, itemCount - 1)
-                                    viewModel.getProductById(product.id)
+                                    viewModel.updateProductQuantity(
+                                        cartProduct.id,
+                                        itemCount - 1
+                                    )
+                                    viewModel.getProductById(cartProduct.id)
                                 }
                             ) {
                                 Icon(
@@ -141,8 +145,8 @@ fun ProductGridItem(
                             )
                             IconButton(
                                 onClick = {
-                                    viewModel.updateProductQuantity(product.id, itemCount + 1)
-                                    viewModel.getProductById(product.id)
+                                    viewModel.updateProductQuantity(cartProduct.id, itemCount + 1)
+                                    viewModel.getProductById(cartProduct.id)
                                 }
                             ) {
                                 Icon(
@@ -173,6 +177,6 @@ fun ProductGridItem(
                 }
             }
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(12.dp))
     }
 }

@@ -47,7 +47,7 @@ fun HomeScreen(
 }
 
 fun LazyGridScope.handleProductsState(
-    productsState: Resource<List<Product>>,
+    productsState: Resource<List<Product>>
 ) {
     when (productsState) {
         is Resource.Loading -> {}

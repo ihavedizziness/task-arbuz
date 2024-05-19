@@ -26,7 +26,7 @@ fun ShopNavHost(
         modifier = Modifier.padding(innerPadding),
     ) {
         homeComposable()
-        cartComposable(navController = navController)
+        cartComposable()
     }
 }
 
@@ -34,13 +34,13 @@ fun NavGraphBuilder.homeComposable() {
     composable(
         route = HOME.route,
         enterTransition = {
-            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, tween(500))
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(500))
         },
         exitTransition = {
-            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Left, tween(500))
+            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(500))
         },
         popEnterTransition = {
-            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Right, tween(500))
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(500))
         },
         content = {
             HomeScreen()
@@ -48,20 +48,20 @@ fun NavGraphBuilder.homeComposable() {
     )
 }
 
-fun NavGraphBuilder.cartComposable(navController: NavHostController) {
+fun NavGraphBuilder.cartComposable() {
     composable(
         route = CART.route,
         enterTransition = {
-            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, tween(500))
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(500))
         },
         exitTransition = {
-            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right, tween(500))
+            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(500))
         },
         popEnterTransition = {
-            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, tween(500))
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(500))
         },
         content = {
-            CartScreen(navController = navController)
+            CartScreen()
         }
     )
 }

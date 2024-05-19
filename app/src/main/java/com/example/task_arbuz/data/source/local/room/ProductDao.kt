@@ -25,4 +25,16 @@ interface ProductDao {
         insertProducts(entities)
     }
 
+    @Query("SELECT * FROM products WHERE id = :productId LIMIT 1")
+    suspend fun getProductById(productId: Int): ProductEntity?
+
+    @Query("SELECT * FROM products WHERE cartQuantity > 0")
+    suspend fun getProductsFromCart(): List<ProductEntity>
+
+    @Query("UPDATE products SET cartQuantity = :quantity WHERE id = :productId")
+    suspend fun updateProductQuantityInCart(productId: Int, quantity: Int)
+
+    @Query("UPDATE products SET cartQuantity = 0 WHERE id = :productId")
+    suspend fun removeProductFromCartById(productId: Int)
+
 }

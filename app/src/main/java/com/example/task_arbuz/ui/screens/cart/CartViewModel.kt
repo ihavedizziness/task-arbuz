@@ -1,4 +1,4 @@
-package com.example.task_arbuz.ui.screens.home
+package com.example.task_arbuz.ui.screens.cart
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,20 +12,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val repository: ProductRepository
+class CartViewModel @Inject constructor(
+    private val repository: ProductRepository,
 ): ViewModel() {
 
-    private val _productsState = MutableStateFlow<Resource<List<Product>>>(Resource.Loading)
-    val productsState = _productsState.asStateFlow()
+    private val _cartProductsState = MutableStateFlow<Resource<List<Product>>>(Resource.Loading)
+    val cartProductsState = _cartProductsState.asStateFlow()
 
     init {
-        fetchProducts()
+        fetchCartProducts()
     }
 
-    private fun fetchProducts() = viewModelScope.launch {
-        repository.fetchProducts().collect { result ->
-            _productsState.value = result
+    private fun fetchCartProducts() = viewModelScope.launch {
+        repository.fetchCartProducts().collect { result ->
+            _cartProductsState.value = result
         }
     }
 

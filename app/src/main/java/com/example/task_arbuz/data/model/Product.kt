@@ -9,4 +9,5 @@ data class Product(
     val image: String? = null,
     val price: Double,
     val quantity: Int? = null,
+    val cartQuantity: Int = 0,
 )
