@@ -10,4 +10,5 @@ interface ProductRepository {
     fun fetchCartProducts(): Flow<Resource<List<Product>>>
     fun getProductById(productId: Int): Flow<Resource<Product>>
     suspend fun updateProductQuantityInCart(productId: Int, quantity: Int): Result<Throwable, Unit>
+    suspend fun insertProducts(products: List<Product>): Result<Throwable, Unit>
 }

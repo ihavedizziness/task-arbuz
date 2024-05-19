@@ -29,4 +29,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun addProducts(products: List<Product>) = viewModelScope.launch {
+        repository.insertProducts(products)
+    }
+
 }

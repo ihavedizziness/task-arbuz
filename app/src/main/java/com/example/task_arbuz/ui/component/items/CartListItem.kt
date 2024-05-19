@@ -1,4 +1,4 @@
-package com.example.task_arbuz.ui.component
+package com.example.task_arbuz.ui.component.items
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -25,11 +25,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -42,7 +44,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.task_arbuz.R
 import com.example.task_arbuz.core.func.Resource
 import com.example.task_arbuz.data.model.Product
-import com.example.task_arbuz.ui.component.main.ProductViewModel
+import com.example.task_arbuz.ui.component.ImageNetworkLoader
 import com.example.task_arbuz.ui.theme.ButtonGrey
 
 @Composable
@@ -52,6 +54,10 @@ fun CartListItem(
 ) {
     var itemCount by remember { mutableIntStateOf(cartProduct.cartQuantity) }
     val productState by viewModel.productState.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.getProductById(cartProduct.id)
+    }
 
     when (val state = productState) {
         is Resource.Success -> {
@@ -68,24 +74,26 @@ fun CartListItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
-                .border(
-                    1.dp,
-                    Color.LightGray.copy(alpha = .2f),
-                    MaterialTheme.shapes.medium
-                )
                 .padding(horizontal = 18.dp)
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxSize()
+                    .border(
+                        1.dp,
+                        Color.LightGray.copy(alpha = .2f),
+                        MaterialTheme.shapes.medium
+                    )
+                    .padding(horizontal = 10.dp)
             ) {
                 Box(
                     modifier = Modifier
                         .width(130.dp)
-                        .height(150.dp)
+                        .height(130.dp)
+                        .align(Alignment.CenterVertically)
                 ) {
                     ImageNetworkLoader(
-                        imageUrl = cartProduct.image ?: "",
+                        imageUrl = cartProduct.image,
                         modifier = Modifier
                             .fillMaxSize()
                     )
@@ -103,6 +111,15 @@ fun CartListItem(
                         )
                     )
                     Spacer(modifier = Modifier.height(5.dp))
+                    Text(
+                        text = "$${cartProduct.price}",
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            color = Color.Black,
+                            fontWeight = FontWeight.Bold
+                        ),
+                    )
+                    Spacer(modifier = Modifier.height(45.dp))
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier
@@ -112,7 +129,6 @@ fun CartListItem(
                             .clickable {
                                 if (itemCount == 0) {
                                     viewModel.updateProductQuantity(cartProduct.id, 1)
-                                    viewModel.getProductById(cartProduct.id)
                                 }
                                 Log.d("count", itemCount.toString())
                             }
@@ -124,7 +140,6 @@ fun CartListItem(
                                         cartProduct.id,
                                         itemCount - 1
                                     )
-                                    viewModel.getProductById(cartProduct.id)
                                 }
                             ) {
                                 Icon(
@@ -142,11 +157,16 @@ fun CartListItem(
                                 ),
                                 modifier = Modifier
                                     .padding(vertical = 4.dp)
+                                    .align(Alignment.CenterVertically)
                             )
                             IconButton(
                                 onClick = {
-                                    viewModel.updateProductQuantity(cartProduct.id, itemCount + 1)
-                                    viewModel.getProductById(cartProduct.id)
+                                    if (itemCount < cartProduct.quantity) {
+                                        viewModel.updateProductQuantity(
+                                            cartProduct.id,
+                                            itemCount + 1
+                                        )
+                                    }
                                 }
                             ) {
                                 Icon(

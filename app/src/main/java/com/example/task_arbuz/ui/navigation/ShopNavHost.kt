@@ -34,13 +34,13 @@ fun NavGraphBuilder.homeComposable() {
     composable(
         route = HOME.route,
         enterTransition = {
-            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(500))
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Right, tween(500))
         },
         exitTransition = {
-            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(500))
+            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Left, tween(500))
         },
         popEnterTransition = {
-            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(500))
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Right, tween(500))
         },
         content = {
             HomeScreen()
@@ -52,13 +52,13 @@ fun NavGraphBuilder.cartComposable() {
     composable(
         route = CART.route,
         enterTransition = {
-            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(500))
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, tween(500))
         },
         exitTransition = {
-            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(500))
+            slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right, tween(500))
         },
         popEnterTransition = {
-            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(500))
+            slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left, tween(500))
         },
         content = {
             CartScreen()

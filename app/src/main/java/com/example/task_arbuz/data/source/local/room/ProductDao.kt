@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.task_arbuz.data.source.local.entity.ProductEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProductDao {
@@ -14,7 +15,7 @@ interface ProductDao {
     suspend fun insertProducts(entities: List<ProductEntity>)
 
     @Query("SELECT * FROM products")
-    suspend fun getProducts(): List<ProductEntity>
+    fun getProducts(): Flow<List<ProductEntity>>
 
     @Query("DELETE FROM products")
     suspend fun clearProducts()
@@ -26,10 +27,10 @@ interface ProductDao {
     }
 
     @Query("SELECT * FROM products WHERE id = :productId LIMIT 1")
-    suspend fun getProductById(productId: Int): ProductEntity?
+    fun getProductById(productId: Int): Flow<ProductEntity?>
 
     @Query("SELECT * FROM products WHERE cartQuantity > 0")
-    suspend fun getProductsFromCart(): List<ProductEntity>
+    fun getProductsFromCart(): Flow<List<ProductEntity>>
 
     @Query("UPDATE products SET cartQuantity = :quantity WHERE id = :productId")
     suspend fun updateProductQuantityInCart(productId: Int, quantity: Int)

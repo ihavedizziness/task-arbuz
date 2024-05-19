@@ -27,11 +27,7 @@ fun ShopApp(
     Scaffold(
         topBar = {
             ShopAppTopBar(
-                currentScreen = currentScreen,
-                canNavigateBack = navController.previousBackStackEntry != null,
-                navigateUp = {
-                    navController.navigateUp()
-                },
+                currentScreen = currentScreen
             )
         },
         content = { innerPadding ->

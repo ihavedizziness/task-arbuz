@@ -10,6 +10,6 @@ data class ProductEntity(
     var name: String,
     var image: String,
     var price: Double,
-    var quantity: Int? = null,
+    var quantity: Int,
     var cartQuantity: Int = 0
 )

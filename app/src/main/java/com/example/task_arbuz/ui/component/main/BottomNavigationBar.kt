@@ -2,11 +2,10 @@ package com.example.task_arbuz.ui.component.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -23,9 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -46,6 +43,16 @@ fun BottomNavigationBar(
         BottomNavItem.CART,
     )
 
+    when (val state = cartProductsState) {
+        is Resource.Success -> {
+            cartCount = state.data.size
+        }
+        is Resource.Empty -> {
+            cartCount = 0
+        }
+        else -> {}
+    }
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
     NavigationBar(
@@ -58,10 +65,11 @@ fun BottomNavigationBar(
             )
             .clickable {
                 when (val state = cartProductsState) {
-                    is Resource.Success -> { cartCount = state.data.size }
-                    else -> {
-                        println("evevewsd")
+                    is Resource.Success -> {
+                        cartCount = state.data.size
                     }
+
+                    else -> {}
                 }
             }
             .clip(RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp))
@@ -76,26 +84,29 @@ fun BottomNavigationBar(
                     Text(text = screen.title)
                 },
                 icon = {
-                    Row {
+                    if (cartCount > 0 && screen == BottomNavItem.CART) {
+                        BadgedBox(
+                            badge = {
+                                Badge {
+                                    Text(text = cartCount.toString())
+                                }
+                            }
+                        ) {
+                            Icon(
+                                imageVector = screen.icon,
+                                contentDescription = screen.title,
+                                tint = if (navBackStackEntry?.destination?.route == screen.route) MaterialTheme.colorScheme.primary else LocalContentColor.current
+                            )
+                        }
+                    } else {
                         Icon(
                             imageVector = screen.icon,
                             contentDescription = screen.title,
                             tint = if (navBackStackEntry?.destination?.route == screen.route) MaterialTheme.colorScheme.primary else LocalContentColor.current
                         )
-                        if (screen == BottomNavItem.CART) {
-                            Spacer(modifier = Modifier.width(2.dp))
-                            Text(
-                                text = "$cartCount",
-                                style = TextStyle(
-                                    fontSize = 16.sp,
-                                    color = Color.Black,
-                                ),
-                            )
-                        }
                     }
                 }
             )
         }
     }
-
 }

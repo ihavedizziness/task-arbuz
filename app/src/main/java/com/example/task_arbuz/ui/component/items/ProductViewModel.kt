@@ -1,4 +1,4 @@
-package com.example.task_arbuz.ui.component.main
+package com.example.task_arbuz.ui.component.items
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
