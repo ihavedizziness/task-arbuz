@@ -13,7 +13,7 @@
 - Hilt for Dependency Injection (DI).
 - Room for local database.
 - Coil for loading images from network.
-- MaterialTheme3.
+- Material Design 3.
 
 ### - Contact - Let's become friend
 - [Telegram](https://t.me/ihavedizziness)
