@@ -1,11 +1,11 @@
-# Arbuz.kz android internship task
+# Arbuz.kz Android Internship Task
 
 [![platform](https://img.shields.io/badge/platform-Android-yellow.svg)](https://www.android.com)
 [![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Github Followers](https://img.shields.io/github/followers/ihavedizziness?label=Follow&style=social)
-![GitHub stars](https://img.shields.io/github/stars/ihavedizziness/android-github-repo-template?style=social)
-![GitHub forks](https://img.shields.io/github/forks/ihavedizziness/android-github-repo-template?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/ihavedizziness/android-github-repo-template?style=social)
+![GitHub stars](https://img.shields.io/github/stars/ihavedizziness/task-arbuz?style=social)
+![GitHub forks](https://img.shields.io/github/forks/ihavedizziness/task-arbuz?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/ihavedizziness/task-arbuz?style=social)
 
 ### Technology Stack
 - AndroidSDK.
