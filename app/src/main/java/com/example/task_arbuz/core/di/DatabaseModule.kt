@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.example.task_arbuz.data.source.local.room.ProductDao
 import com.example.task_arbuz.data.source.local.room.ShopDatabase
-import com.example.task_arbuz.util.Constants.DB_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,12 +22,12 @@ class DatabaseModule {
         return Room.databaseBuilder(
             context = context,
             klass = ShopDatabase::class.java,
-            name = DB_NAME
+            name = "shop.db"
         ).fallbackToDestructiveMigration()
             .build()
     }
 
     @Provides
-    fun provideMovieDao(database: ShopDatabase): ProductDao = database.productDao()
+    fun provideProductDao(database: ShopDatabase): ProductDao = database.productDao()
 
 }

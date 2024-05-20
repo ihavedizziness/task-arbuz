@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.jetbrains.kotlin.serialization)
+//    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -87,10 +87,10 @@ dependencies {
     // coil network image loader
     implementation(libs.coil.compose)
 
-    // kt serialization
-    implementation(libs.kotlin.serialization.json)
-
-    // network
-    implementation(libs.retrofit)
-    implementation(libs.logging.interceptor)
+//    // kt serialization
+//    implementation(libs.kotlin.serialization.json)
+//
+//    // network
+//    implementation(libs.retrofit)
+//    implementation(libs.logging.interceptor)
 }

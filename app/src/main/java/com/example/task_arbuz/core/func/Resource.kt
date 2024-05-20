@@ -1,6 +1,7 @@
 package com.example.task_arbuz.core.func
 
 sealed class Resource<out Data> {
+    data object Initial: Resource<Nothing>()
     data object Loading: Resource<Nothing>()
     data object Empty: Resource<Nothing>()
     data class Error(val exception: Throwable): Resource<Nothing>()

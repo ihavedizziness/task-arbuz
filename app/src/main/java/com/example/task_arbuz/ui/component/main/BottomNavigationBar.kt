@@ -35,7 +35,7 @@ fun BottomNavigationBar(
     navController: NavHostController,
     cartViewModel: CartViewModel = hiltViewModel()
 ) {
-    var cartCount by remember { mutableIntStateOf(0) }
+    var cartCount = 0
     val cartProductsState by cartViewModel.cartProductsState.collectAsState()
 
     val navItemList = listOf(
@@ -46,9 +46,6 @@ fun BottomNavigationBar(
     when (val state = cartProductsState) {
         is Resource.Success -> {
             cartCount = state.data.size
-        }
-        is Resource.Empty -> {
-            cartCount = 0
         }
         else -> {}
     }
@@ -63,15 +60,6 @@ fun BottomNavigationBar(
                 shape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp),
                 elevation = 12.dp
             )
-            .clickable {
-                when (val state = cartProductsState) {
-                    is Resource.Success -> {
-                        cartCount = state.data.size
-                    }
-
-                    else -> {}
-                }
-            }
             .clip(RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp))
     ) {
         navItemList.forEach { screen ->
@@ -95,14 +83,20 @@ fun BottomNavigationBar(
                             Icon(
                                 imageVector = screen.icon,
                                 contentDescription = screen.title,
-                                tint = if (navBackStackEntry?.destination?.route == screen.route) MaterialTheme.colorScheme.primary else LocalContentColor.current
+                                tint = if (navBackStackEntry?.destination?.route == screen.route)
+                                        MaterialTheme.colorScheme.primary
+                                    else
+                                        LocalContentColor.current
                             )
                         }
                     } else {
                         Icon(
                             imageVector = screen.icon,
                             contentDescription = screen.title,
-                            tint = if (navBackStackEntry?.destination?.route == screen.route) MaterialTheme.colorScheme.primary else LocalContentColor.current
+                            tint = if (navBackStackEntry?.destination?.route == screen.route)
+                                    MaterialTheme.colorScheme.primary
+                                else
+                                    LocalContentColor.current
                         )
                     }
                 }

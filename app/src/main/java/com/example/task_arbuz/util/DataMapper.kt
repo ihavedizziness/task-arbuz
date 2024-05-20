@@ -1,6 +1,6 @@
 package com.example.task_arbuz.util
 
-import com.example.task_arbuz.data.model.Product
+import com.example.task_arbuz.domain.model.Product
 import com.example.task_arbuz.data.source.local.entity.ProductEntity
 
 fun ProductEntity.toPresentation() =

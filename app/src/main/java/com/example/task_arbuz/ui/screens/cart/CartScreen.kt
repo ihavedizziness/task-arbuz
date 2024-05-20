@@ -38,7 +38,6 @@ fun CartScreen(
         is Resource.Loading -> {
             CircularLoading()
         }
-        is Resource.Error -> {}
         is Resource.Empty -> {
             Box(
                 modifier = Modifier
@@ -85,11 +84,17 @@ fun CartScreen(
                         .fillMaxSize()
                         .background(MaterialTheme.colorScheme.background)
                 ) {
-                    items(cartProducts) { item ->
+                    items(
+                        items = cartProducts,
+                        key = {
+                            product -> product.id
+                        }
+                    ) { item ->
                         CartListItem(cartProduct = item)
                     }
                 }
             }
         }
+        else -> {}
     }
 }

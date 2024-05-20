@@ -1,8 +1,8 @@
-package com.example.task_arbuz.domain
+package com.example.task_arbuz.domain.repository
 
 import com.example.task_arbuz.core.func.Resource
 import com.example.task_arbuz.core.func.Result
-import com.example.task_arbuz.data.model.Product
+import com.example.task_arbuz.domain.model.Product
 import kotlinx.coroutines.flow.Flow
 
 interface ProductRepository {

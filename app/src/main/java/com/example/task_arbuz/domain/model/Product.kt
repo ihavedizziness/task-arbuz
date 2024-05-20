@@ -1,8 +1,5 @@
-package com.example.task_arbuz.data.model
+package com.example.task_arbuz.domain.model
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Product(
     val id: Int,
     val name: String,

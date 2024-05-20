@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.task_arbuz.core.func.Resource
-import com.example.task_arbuz.data.model.Product
+import com.example.task_arbuz.domain.model.Product
 import com.example.task_arbuz.ui.component.items.ProductGridItem
 
 @Composable
@@ -52,7 +52,6 @@ fun LazyGridScope.handleProductsState(
     viewModel: HomeViewModel
 ) {
     when (productsState) {
-        is Resource.Loading -> {}
         is Resource.Empty -> {
             val products = listOf(
                 Product(1, "Avocado", "https://cdn.pixabay.com/photo/2024/01/09/22/11/avocado-8498520_1280.jpg", 19.99, 10, 0),
@@ -69,13 +68,16 @@ fun LazyGridScope.handleProductsState(
 
             viewModel.addProducts(products)
         }
-        is Resource.Error -> {}
         is Resource.Success -> {
             val products = productsState.data
 
-            items(products) { item ->
+            items(
+                items = products,
+                key = { product -> product.id }
+            ) { item ->
                 ProductGridItem(product = item)
             }
         }
+        else -> {}
     }
 }

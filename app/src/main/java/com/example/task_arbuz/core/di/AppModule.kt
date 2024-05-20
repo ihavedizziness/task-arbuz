@@ -1,8 +1,8 @@
 package com.example.task_arbuz.core.di
 
-import com.example.task_arbuz.data.repository.ProductRepositoryImpl
+import com.example.task_arbuz.data.ProductRepositoryImpl
 import com.example.task_arbuz.data.source.local.room.ProductDao
-import com.example.task_arbuz.domain.ProductRepository
+import com.example.task_arbuz.domain.repository.ProductRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +22,4 @@ class AppModule {
             productDao = productDao
         )
     }
-
 }
