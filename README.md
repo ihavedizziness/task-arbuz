@@ -10,6 +10,7 @@
 ### Technology Stack
 - AndroidSDK.
 - Jetpack Compose for UI.
+- Navigation Compose.
 - Hilt for Dependency Injection (DI).
 - Room for local database.
 - Coil for loading images from network.
