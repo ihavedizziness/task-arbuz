@@ -15,7 +15,7 @@
 - Coil for loading images from network.
 - Material Design 3.
 
-### - Contact - Let's become friend
+### - Contacts
 - [Telegram](https://t.me/ihavedizziness)
 - [Github](https://github.com/ihavedizziness)
 - [Linkedin](https://www.linkedin.com/in/almat-zhuban/)
